@@ -11,11 +11,21 @@ export default class Search extends React.Component {
     error: null,
   };
 
-  handleSubmit = () => {
+  handleSubmit = (e) => {
+    e.preventDefault();
     const { searchTerm } = this.state;
     if (searchTerm !== "") {
       this.searchByTerm();
     }
+  };
+
+  updateTerm = (e) => {
+    const {
+      target: { value },
+    } = e;
+    this.setState({
+      searchTerm: value,
+    });
   };
 
   searchByTerm = async () => {
@@ -50,6 +60,7 @@ export default class Search extends React.Component {
         loading={loading}
         error={error}
         handleSubmit={this.handleSubmit}
+        updateTerm={this.updateTerm}
       />
     );
   }
