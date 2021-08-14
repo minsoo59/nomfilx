@@ -8,7 +8,7 @@ export default class Search extends React.Component {
     tvResults: null,
     searchTerm: "",
     loading: false,
-    error: null,
+    error: false,
   };
 
   handleSubmit = (e) => {
@@ -51,7 +51,6 @@ export default class Search extends React.Component {
 
   render() {
     const { movieResults, tvResults, searchTerm, loading, error } = this.state;
-    console.log(this.state);
     return (
       <SearchPresenter
         movieResults={movieResults}

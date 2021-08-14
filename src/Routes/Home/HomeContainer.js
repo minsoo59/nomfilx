@@ -7,7 +7,7 @@ export default class Home extends React.Component {
     noewPlaying: null,
     upcoming: null,
     popular: null,
-    error: null,
+    error: false,
     loading: true,
   };
 

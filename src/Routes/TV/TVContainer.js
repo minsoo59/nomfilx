@@ -7,7 +7,7 @@ export default class TV extends React.Component {
     topRated: null,
     popular: null,
     airingToday: null,
-    error: null,
+    error: false,
     loading: true,
   };
 
