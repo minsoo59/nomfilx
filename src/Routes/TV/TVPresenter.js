@@ -4,6 +4,7 @@ import styled from "styled-components";
 
 import Section from "Components/Section";
 import Loader from "Components/Loader";
+import Message from "Components/Message";
 
 const Container = styled.div`
   padding: 0 20px;
@@ -35,6 +36,7 @@ const TVPresenter = ({ topRated, popular, airingToday, error, loading }) =>
           ))}
         </Section>
       )}
+      {error && <Message color="#e74c3c" text={error} />}
     </Container>
   );
 
@@ -43,7 +45,7 @@ TVPresenter.propTypes = {
   popular: PropTypes.array,
   airingToday: PropTypes.array,
   error: PropTypes.bool.isRequired,
-  loading: PropTypes.string,
+  loading: PropTypes.bool,
 };
 
 export default TVPresenter;

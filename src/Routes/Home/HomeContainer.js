@@ -22,12 +22,12 @@ export default class Home extends React.Component {
       const {
         data: { results: popular },
       } = await moviesApi.popular();
+      // throw Error();
       this.setState({
         noewPlaying,
         upcoming,
         popular,
       });
-      // throw Error();
     } catch {
       this.setState({
         error: "Can't find movies information.",
