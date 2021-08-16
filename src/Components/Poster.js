@@ -32,7 +32,7 @@ const Poster = ({ id, imageUrl, title, rating, year, isMovie = false }) => (
     </Container>
   </Link>
 );
-Poster.PropTypes = {
+Poster.propTypes = {
   id: PropTypes.number.isRequired,
   imageUrl: PropTypes.string,
   title: PropTypes.string.isRequired,
