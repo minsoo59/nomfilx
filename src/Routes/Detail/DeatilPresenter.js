@@ -192,9 +192,7 @@ const DetailPresenter = ({ result, error, loading }) =>
               {result.seasons ? <Divider>▪</Divider> : null}
             </>
             <Item>
-              <a href={`${result.homepage}` || "null"} target="_blank">
-                homepage
-              </a>
+              <a href={`${result.homepage}` || "null"}>homepage</a>
             </Item>
           </ItemContainer>
 
@@ -205,11 +203,7 @@ const DetailPresenter = ({ result, error, loading }) =>
             {result.videos &&
               result.videos.results.map((video) => (
                 <div key={video.key}>
-                  <a
-                    href={`https://www.youtube.com/watch?v=${video.key}`}
-                    target="_blank"
-                    rel="noreferrer"
-                  >
+                  <a href={`https://www.youtube.com/watch?v=${video.key}`}>
                     {video.name}
                   </a>
                 </div>
