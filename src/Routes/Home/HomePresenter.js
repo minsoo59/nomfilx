@@ -11,7 +11,7 @@ const Container = styled.div`
   padding: 20px;
 `;
 
-const HomePresenter = ({ noewPlaying, upcoming, popular, error, loading }) => (
+const HomePresenter = ({ nowPlaying, upcoming, popular, error, loading }) => (
   <>
     <Helmet>
       <title> Movies | Nomfilx </title>
@@ -20,9 +20,9 @@ const HomePresenter = ({ noewPlaying, upcoming, popular, error, loading }) => (
       <Loader />
     ) : (
       <Container>
-        {noewPlaying && noewPlaying.length > 0 && (
+        {nowPlaying && nowPlaying.length > 0 && (
           <Section title="Now Playing">
-            {noewPlaying.map((movie) => (
+            {nowPlaying.map((movie) => (
               <Poster
                 key={movie.id}
                 id={movie.id}
@@ -72,7 +72,7 @@ const HomePresenter = ({ noewPlaying, upcoming, popular, error, loading }) => (
 );
 
 HomePresenter.propTypes = {
-  noewPlaying: PropTypes.array,
+  nowPlaying: PropTypes.array,
   upcoming: PropTypes.array,
   popular: PropTypes.array,
   error: PropTypes.bool.isRequired,

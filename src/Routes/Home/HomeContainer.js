@@ -1,21 +1,19 @@
 import { moviesApi } from "api";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import HomePresenter from "./HomePresenter";
 
-export default class Home extends React.Component {
-  state = {
-    noewPlaying: null,
-    upcoming: null,
-    popular: null,
-    error: false,
-    loading: true,
-  };
+function useFetch() {
+  const [nowPlaying, setNowplaying] = useState(null);
+  const [upcoming, setUpcoming] = useState(null);
+  const [popular, setPopular] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState("");
 
-  async componentDidMount() {
+  const callUrl = async () => {
     try {
       const {
-        data: { results: noewPlaying },
-      } = await moviesApi.noewPlaying();
+        data: { results: nowPlaying },
+      } = await moviesApi.nowPlaying();
       const {
         data: { results: upcoming },
       } = await moviesApi.upcoming();
@@ -23,33 +21,29 @@ export default class Home extends React.Component {
         data: { results: popular },
       } = await moviesApi.popular();
       // throw Error();
-      this.setState({
-        noewPlaying,
-        upcoming,
-        popular,
-      });
-    } catch {
-      this.setState({
-        error: "Can't find movies information.",
-      });
+      setNowplaying(nowPlaying);
+      setUpcoming(upcoming);
+      setPopular(popular);
+    } catch (error) {
+      setError(error);
     } finally {
-      this.setState({
-        loading: false,
-      });
+      setLoading(false);
     }
-  }
-
-  render() {
-    const { noewPlaying, upcoming, popular, error, loading } = this.state;
-    // console.log(this.state);
-    return (
-      <HomePresenter
-        noewPlaying={noewPlaying}
-        upcoming={upcoming}
-        popular={popular}
-        error={error}
-        loading={loading}
-      />
-    );
-  }
+  };
+  useEffect(() => {
+    callUrl();
+  });
+  return { nowPlaying, upcoming, popular, error, loading };
+}
+export default function Home() {
+  const { nowPlaying, upcoming, popular, error, loading } = useFetch(moviesApi);
+  return (
+    <HomePresenter
+      nowPlaying={nowPlaying}
+      upcoming={upcoming}
+      popular={popular}
+      error={error}
+      loading={loading}
+    />
+  );
 }

@@ -10,7 +10,7 @@ const api = axios.create({
 //  /로 시작되는건 절대경로를 말하는거니까 주의할것.
 
 export const moviesApi = {
-  noewPlaying: () => api.get("movie/now_playing"),
+  nowPlaying: () => api.get("movie/now_playing"),
   upcoming: () => api.get("movie/upcoming"),
   popular: () => api.get("movie/popular"),
   movieDetail: (id) =>
