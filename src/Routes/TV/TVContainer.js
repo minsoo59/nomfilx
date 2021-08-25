@@ -1,17 +1,14 @@
 import { tvApi } from "api";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import TVPresenter from "./TVPresenter";
 
-export default class TV extends React.Component {
-  state = {
-    topRated: null,
-    popular: null,
-    airingToday: null,
-    error: false,
-    loading: true,
-  };
-
-  async componentDidMount() {
+function useFetch() {
+  const [topRated, setTopRated] = useState(null);
+  const [popular, setPopular] = useState(null);
+  const [airingToday, setAiringToday] = useState(null);
+  const [error, setError] = useState(false);
+  const [loading, setLoading] = useState(true);
+  const callUrl = async () => {
     try {
       const {
         data: { results: topRated },
@@ -22,32 +19,29 @@ export default class TV extends React.Component {
       const {
         data: { results: airingToday },
       } = await tvApi.airingToday();
-      this.setState({
-        topRated,
-        popular,
-        airingToday,
-      });
-    } catch {
-      this.setState({
-        error: "Can't find TV information.",
-      });
+      setTopRated(topRated);
+      setPopular(popular);
+      setAiringToday(airingToday);
+    } catch (error) {
+      setError(error);
     } finally {
-      this.setState({
-        loading: false,
-      });
+      setLoading(false);
     }
-  }
-
-  render() {
-    const { topRated, popular, airingToday, error, loading } = this.state;
-    return (
-      <TVPresenter
-        topRated={topRated}
-        popular={popular}
-        airingToday={airingToday}
-        error={error}
-        loading={loading}
-      />
-    );
-  }
+  };
+  useEffect(() => {
+    callUrl();
+  }, [loading]);
+  return { topRated, popular, airingToday, error, loading };
+}
+export default function TV() {
+  const { topRated, popular, airingToday, error, loading } = useFetch(tvApi);
+  return (
+    <TVPresenter
+      topRated={topRated}
+      popular={popular}
+      airingToday={airingToday}
+      error={error}
+      loading={loading}
+    />
+  );
 }

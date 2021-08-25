@@ -8,7 +8,6 @@ function useFetch() {
   const [popular, setPopular] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
-
   const callUrl = async () => {
     try {
       const {
@@ -20,7 +19,6 @@ function useFetch() {
       const {
         data: { results: popular },
       } = await moviesApi.popular();
-      // throw Error();
       setNowplaying(nowPlaying);
       setUpcoming(upcoming);
       setPopular(popular);
@@ -32,7 +30,7 @@ function useFetch() {
   };
   useEffect(() => {
     callUrl();
-  });
+  }, [loading]);
   return { nowPlaying, upcoming, popular, error, loading };
 }
 export default function Home() {
